@@ -2,7 +2,6 @@ import express from 'express'
 import { User } from '../schema.js'
 
 const userRouter = express.Router()
-var uname;
 
 userRouter.get('/', async(req, res)=>{
     try {
@@ -86,7 +85,7 @@ userRouter.get('/Login', (req, res)=>{
                 "msg":"Mising Fields"
             })
         }
-        uname = req.body.uName
+        const uname = req.body.uName
         const passwd = req.body.Passwd
         const user = User.find({userName:uname,passwd:passwd })
         if (user.length === 0){
@@ -105,15 +104,21 @@ userRouter.get('/Login', (req, res)=>{
         
 })
 userRouter.get('/Logout', (req, res)=>{
+    if (!req.body.uname){
+        return res.status(400).json({
+            "msg":"Error mising field: uname"
+        })
+    }
+    const uname = req.body.uname
     if (uname in req.cookies){
         return res.clearCookie(uname).status(203).json({
             "msg":"Logged Out Successfully"
         })
     }
-    else{
-        return res.status(406).json({
-            "msg":"Not Logged in"
-        })
-    }
+    
+    return res.status(406).json({
+        "msg":"Not Logged in"
+    })
+    
 })
 export default userRouter
