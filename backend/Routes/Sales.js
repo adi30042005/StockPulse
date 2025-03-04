@@ -3,10 +3,10 @@ import { Sales,Inv, Store } from "../schema.js"
 
 const SalesRouter = express.Router()
 
-SalesRouter.get('/', async(req, res)=>{
+SalesRouter.get('/:id', async(req, res)=>{
     try {
-        const salesData = await Sales.find({})
-        if (salesData.length != 0 ){
+        const salesData = await Sales.find({_id:req.body.saleId})
+        if (salesData.length != 0 ){  
             return res.status(201).json({
                 "msg":"Data Fetched",
                 salesData
