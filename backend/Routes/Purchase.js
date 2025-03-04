@@ -4,7 +4,7 @@ import { Store, Inv } from "../schema.js"
 
 const PurchaseRoute = express.Router()
 
-PurchaseRoute.post('', async (req, res)=>{
+PurchaseRoute.post('/', async (req, res)=>{
     if (!(req.body.invoiceID || eq.body.productId || req.body.storeID || req.body.Date || req.body.RetailPrice ||  req.body.Quantity || req.body.Paid)){
         return res.status(400).json({
             "msg":"Missing fields"
