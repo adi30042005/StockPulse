@@ -21,7 +21,7 @@ storeRouter.get('/', async(req, res)=>{
 })
 
 storeRouter.post('/AddStore', (req, res)=>{
-    if (!(req.body.storeId || req.body.storeName || req.body.storeAddress)){
+    if (!(req.body.storeId || req.body.storeName || req.body.storeAddress || req.body.OwnerId)){
         return res.status(400).json({
             "msg":"Missing Fields"
         })
@@ -33,7 +33,9 @@ storeRouter.post('/AddStore', (req, res)=>{
         TotalSales:0,
         TotalExp:0,
         toGive:0,
-        toGet:0
+        toGet:0,
+        OwnerId:req.body.OwnerId,
+        UserId: (req.body.UserId) ? req.body.UserId : false
     }
     try {
         const newS = new Store(newStore)

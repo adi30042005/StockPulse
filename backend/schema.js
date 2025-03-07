@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const storeSchema = mongoose.Schema({
     _id:{
@@ -13,7 +13,12 @@ const storeSchema = mongoose.Schema({
     TotalSales:Number,
     TotalExp :Number,
     toGive:Number,
-    toGet:Number
+    toGet:Number,
+    OwnerId:String,
+    UserId:{
+        type:Array,
+        default:false
+    }
 })
 
 //Purchase Invoice schema
@@ -109,7 +114,7 @@ const inventorySchema=mongoose.Schema({
 })
 
 //Log
-const logSchema = Mongoose.Schema({
+const logSchema = mongoose.Schema({
     _id:{
         type:Number, 
         required:true
@@ -126,4 +131,4 @@ export const Purchase =  mongoose.model('Purchase',purchaseSchema, "Purchase")
 export const Sales =  mongoose.model('Sales',salesSchema, "Sales")
 export const Inv =  mongoose.model('Inventory',inventorySchema, "Inventory")
 export const User = mongoose.model('User', userSchema, 'User')
-export const Log = Mongoose.model('Log', logSchema, 'Log')
+export const Log = mongoose.model('Log', logSchema, 'Log')
