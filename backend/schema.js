@@ -2,19 +2,19 @@ import mongoose from "mongoose";
 
 const storeSchema = mongoose.Schema({
     _id:{
-        type:String, 
+        type:Number, 
         required:true
     },
     StoreName:{
-        type:String,
+        type:Number,
         required:true
     },
-    StoreAddress:String,
+    StoreAddress:Number,
     TotalSales:Number,
     TotalExp :Number,
     toGive:Number,
     toGet:Number,
-    OwnerId:String,
+    OwnerId:Number,
     UserId:{
         type:Array,
         default:false
@@ -24,12 +24,12 @@ const storeSchema = mongoose.Schema({
 //Purchase Invoice schema
 const purchaseSchema = mongoose.Schema({
     _id:{
-        type:String, 
+        type:Number, 
         required:true
     }, 
     date:Date,
-    productId: String,
-    storeID: String,
+    productId: Number,
+    storeID: Number,
     Quantity: Number,
     Paid:{
         type:Boolean,
@@ -41,16 +41,16 @@ const purchaseSchema = mongoose.Schema({
 const salesSchema = mongoose.Schema({
     // Sales invoice id
     _id:{
-        type:String, 
+        type:Number, 
         required:true
     },
     Date:Date,
     StoreId:{
-        type:String,
+        type:Number,
         required:true
     },
     productID:{
-        type:String,
+        type:Number,
         required:true
     },
     Quantity:{
@@ -87,7 +87,7 @@ const userSchema = mongoose.Schema({
 // Product Detail schema
 const inventorySchema=mongoose.Schema({
     _id:{
-        type:String, 
+        type:Number, 
         required:true
     },
     productName:{
@@ -121,7 +121,7 @@ const logSchema = mongoose.Schema({
     },
     userName:String,
     lastLogon:Date,
-    state:{
+    status:{
         type:Boolean,
         default:true
     }

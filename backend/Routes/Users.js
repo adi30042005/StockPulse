@@ -1,5 +1,5 @@
 import express from 'express'
-import { User } from '../schema.js'
+import { User, Log } from '../schema.js'
 
 const userRouter = express.Router()
 
@@ -78,7 +78,7 @@ userRouter.get('/userName/:name', async(req, res)=>{
         })
     }
 })
-userRouter.get('/Login', (req, res)=>{
+userRouter.get('/Login',async(req, res)=>{
     try {
         if (!(req.body.uName || req.body.Passwd)){
             return res.status(400).json({
@@ -93,6 +93,26 @@ userRouter.get('/Login', (req, res)=>{
                 "msg":"Login Failed"
             })
         }
+        const lastUser = await Log.find()
+        var lastId
+        if (lastUser.length != 0){
+            lastId = lastUser.at(-1)._id
+        }
+        else{
+            lastId = 1
+        }
+        const log = {
+            _id:lastId,
+            userName:uname,
+            lastLogon:Date.now(),
+            status:true
+        }
+        try {
+        const newLog = new Log(log)
+        newLog.save()   
+        } catch (error) {
+            console.log(error)   
+        }
         return res.status(202).json({
             "msg":"Login Success"
         }).cookie(uname, passwd)
@@ -103,7 +123,7 @@ userRouter.get('/Login', (req, res)=>{
     }
         
 })
-userRouter.get('/Logout', (req, res)=>{
+userRouter.get('/Logout', async(req, res)=>{
     if (!req.body.uname){
         return res.status(400).json({
             "msg":"Error mising field: uname"
@@ -115,7 +135,10 @@ userRouter.get('/Logout', (req, res)=>{
             "msg":"Logged Out Successfully"
         })
     }
-    
+    const user = await Log.find({userName:uname})
+    if (user.length != 0){
+        user.status = false
+    }
     return res.status(406).json({
         "msg":"Not Logged in"
     })
