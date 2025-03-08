@@ -138,6 +138,7 @@ userRouter.get('/Logout', async(req, res)=>{
     const user = await Log.find({userName:uname})
     if (user.length != 0){
         user.status = false
+        user.save()
     }
     return res.status(406).json({
         "msg":"Not Logged in"
