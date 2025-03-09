@@ -20,7 +20,7 @@ userRouter.get('/', async(req, res)=>{
     }
 })
 
-userRouter.post('/', async(req, res)=>{
+userRouter.post('/Register', async(req, res)=>{
     if (!(req.body.Name || req.body.userName || req.body.passwd || req.body.Role)){
         return res.status(400).json({
             "msg":"Missing fields"
