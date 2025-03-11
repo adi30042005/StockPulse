@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios"
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
+
+
 function Register(){
     document.title = "StockPulse - Register"
-
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const [passwd, setPass] = useState('')
+    const [password, setPass] = useState('')
     const [cpass, setCpass] = useState('')
     const [role, setRole] = useState('')
-    const nav = Navigate()
+    const [err, setError] = useState('')
+
+    const nav = useNavigate()
 
     const handleName = (e) =>{
       setName(e.target.value)
@@ -26,40 +30,56 @@ function Register(){
     const handleRole = (e) =>{
       setRole(e.target.value)
     }
-    if (passwd != cpass){
-        document.getElementById('Error').textContent = "Password doesnt match"
-    }
-    else{
-      const newUser = {
-        "Name":name,
-        "userName":email,
-        "passwd":passwd,
-        "Role":role
+    
+      const handleSubmit = async() =>{
+        if (!(name || email || passwd || role)){
+          setError("Missing Fields")
+          return
+        }
+        if (passwd === cpass) {
+          setError("Password Mismatch Error")
+          return
+        }
+        else setError("")
+        
+        const newUser = {
+          "Name":name,
+          "userName":email,
+          "passwd":password,
+          "Role":role
+        }
+        try {
+          const res = await axios.post("http://localhost:1234/User/Register", newUser)
+          if (res.status === 200) {
+            nav('/success')
+            console.log(res.id)
+            document.cookie = ``
+          }
+        } catch (error) {
+          console.error(error)
+          setError("Registration failed please try again")
+        }
       }
-      axios.post('http://localhost:1234/User/Register', newUser).then((res)=>{
-        if (res.status(200)) nav('')
-        else document.getElementById('formErr').innerText="Error in registering" 
-      })
-    }
 
   return (
     <div>
       <label htmlFor="name">Name: </label>
       <input type="text" onChange={handleName} name="name"/> <br />
       <label htmlFor="email">Email: </label>
-      <input type="text" name="email" onChange={handleEmail}/> <br />
+      <input type="email" name="email" onChange={handleEmail}/> <br />
       <label htmlFor="passwd">Password: </label>
-      <input type="text" name="name" onChange={handlePass}/> <br />
+      <input type="password" name="password" onChange={handlePass}/> <br />
       <label htmlFor="cpass">Re-enter the Password: </label>
-      <p id='Error'></p>
-      <input type="text" name="cpass" onChange={handleCpass}/> <br />
+      <input type="password" name="cpass" onChange={handleCpass}/> <br />
+      {err && <p>{err}</p>}
       <label htmlFor="role">Role: </label>
-      <select name="role" id="" onClick={handleRole}>
+      <select name="role" id="" onChange={handleRole}>
         <option value="Owner">Owner</option>
         <option value="Admin">Admin</option>
         <option value="Worker">Worker</option>
       </select>
       <p id="formErr"></p>
+      <button onClick={handleSubmit}>Register</button>
     </div>
   )
 }
