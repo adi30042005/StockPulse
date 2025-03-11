@@ -36,7 +36,7 @@ userRouter.post('/Register', async(req, res)=>{
             lastId = 1
         }
         const newUser = {
-            _id:lastId,
+            _id:lastId + 1,
             Name:req.body.Name,
             userName:req.body.userName,
             passwd:req.body.passwd,
@@ -48,7 +48,8 @@ userRouter.post('/Register', async(req, res)=>{
         const newU = new User(newUser)
         newU.save()
         return res.status(200).json({
-            "msg":"New User added"
+            "msg":"New User added",
+            id:_id
         })
         
     } catch (error) {
@@ -78,9 +79,10 @@ userRouter.get('/userName/:name', async(req, res)=>{
         })
     }
 })
-userRouter.get('/Login',async(req, res)=>{
+userRouter.post('/Login',async(req, res)=>{
     try {
-        if (!(req.body.uName || req.body.Passwd)){
+        console.log(req.body)
+        if ((req.body.uName==null || req.body.Passwd==null)){
             return res.status(400).json({
                 "msg":"Mising Fields"
             })
@@ -102,7 +104,7 @@ userRouter.get('/Login',async(req, res)=>{
             lastId = 1
         }
         const log = {
-            _id:lastId,
+            _id:lastId + 1,
             userName:uname,
             lastLogon:Date.now(),
             status:true
@@ -114,11 +116,14 @@ userRouter.get('/Login',async(req, res)=>{
             console.log(error)   
         }
         return res.status(202).json({
-            "msg":"Login Success"
-        }).cookie(uname, passwd)
+            "msg":"Login Success",
+            id:uname
+        })
     } catch (error) {
+        console.log(error)
         res.status(401).json({
-            "msg":"Error in fetchin data"
+            "msg":"Error in fetchin data",
+            "err":error
         })
     }
         

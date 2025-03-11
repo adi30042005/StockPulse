@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://aniruddhanarasimman:Anis301004@inventory.kuh1e.m
         console.error(err);
 });
 
-app.use(cookieparser())
+// app.use(cookieparser())
 app.use(cors())
 app.use(express.json())
 app.use('/Purchase',PurchaseRoute )
