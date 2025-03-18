@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const storeSchema = mongoose.Schema({
     _id:{
@@ -113,6 +113,16 @@ const inventorySchema=mongoose.Schema({
     Promotion:String
 })
 
+//Vendor
+const vendorSchema = mongoose.Schema({
+    _id:{
+        type:Number,
+        required:true
+    },
+    name:String,
+    Location:String
+})
+
 //Log
 const logSchema = mongoose.Schema({
     _id:{
@@ -132,3 +142,4 @@ export const Sales =  mongoose.model('Sales',salesSchema, "Sales")
 export const Inv =  mongoose.model('Inventory',inventorySchema, "Inventory")
 export const User = mongoose.model('User', userSchema, 'User')
 export const Log = mongoose.model('Log', logSchema, 'Log')
+export const Vendor = mongoose.model("Vendor", vendorSchema, "Vendor")

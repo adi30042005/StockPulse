@@ -1,13 +1,12 @@
 import express from "express"
 import cors from "cors"
-import session from "express-session"
-import cookieparser from "cookieparser"
 import PurchaseRoute from "./Routes/Purchase.js"
 import mongoose from "mongoose"
 import InvRoute from "./Routes/Inventory.js"
 import storeRouter from "./Routes/Store.js"
 import SalesRouter from "./Routes/Sales.js"
 import userRouter from "./Routes/Users.js"
+import vendorRouter from "./Routes/Vendor.js"
 
 const app = express()
 mongoose.connect('mongodb+srv://aniruddhanarasimman:Anis301004@inventory.kuh1e.mongodb.net/SmartInventoryManagement?retryWrites=true&w=majority')
@@ -19,6 +18,7 @@ mongoose.connect('mongodb+srv://aniruddhanarasimman:Anis301004@inventory.kuh1e.m
 // app.use(cookieparser())
 app.use(cors())
 app.use(express.json())
+app.use('/Vendor', vendorRouter)
 app.use('/Purchase',PurchaseRoute )
 app.use('/Inventory', InvRoute)
 app.use('/Store', storeRouter)
