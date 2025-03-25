@@ -6,7 +6,7 @@ function SearchEngine({SetSearch}){
     }
   return (
     <div>
-        <input type="text" placeholder='Search'/>
+        <input type="text" placeholder='Search' onChange={handleSearch}/>
     </div>
   )
 }

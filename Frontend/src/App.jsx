@@ -3,6 +3,7 @@ import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import Login from './Pages/Login'
 import Register from './Pages/Register'
 import Success from './Pages/Success'
+import Inventory from './Pages/Inventory'
 
 const route = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const route = createBrowserRouter([
     {
       path:'/success',
       element:<Success />
+    },
+    {
+      path:'/inventory',
+      element:<Inventory />
     }
 ])
 

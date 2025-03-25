@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import SearchEngine, {Search} from '../assets/Components/SearchEngine'
+import SearchEngine from '../assets/Components/SearchEngine'
 
 function Inventory(){
     const [Search, setSearch] = useState('')
   return (
     <div>
+      <h1>HE</h1>
       <SearchEngine SetSearch={setSearch}/>
-
+      
     </div>
   )
 }
