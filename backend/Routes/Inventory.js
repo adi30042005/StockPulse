@@ -3,7 +3,7 @@ import { Inv } from "../schema.js"
 
 const InvRoute = express.Router()
 
-InvRoute.post('/NewAdmin', (req, res)=>{
+InvRoute.post('/NewAdmin', async(req, res)=>{
     if (!(req.body.pdtId || req.body.Name || req.body.MRP || req.body.Quantity || req.body.sID || req.body.RP || req.body.Category || 
         req.body.uB || req.body.uS || req.body.season || req.body.p )){
             return res.status(400).json({
@@ -11,7 +11,6 @@ InvRoute.post('/NewAdmin', (req, res)=>{
             })
         }
         const newProduct = {
-            _id:req.body.pdtId,
             productName:req.body.Name,
             MRP:req.body.MRP,
             Quantity:req.body.Quantity,
@@ -25,7 +24,10 @@ InvRoute.post('/NewAdmin', (req, res)=>{
         }
 
         try {
-            
+            const allEntry = await Inv.find({})
+            var lastId = 1
+            if (allEntry.lenght !=0) lastId = allEntry.at(-1)._id + 1
+            newProduct._id = lastId
             const newEntry = new Inv(newProduct)
             newEntry.save()
             return res.status(200).json({
@@ -38,7 +40,7 @@ InvRoute.post('/NewAdmin', (req, res)=>{
         }
 })
 
-InvRoute.get('/NameSeach/:name', async(req, res)=>{
+InvRoute.get('/NameSearch/:name', async(req, res)=>{
     try {
         const pdt = await Inv.find({productName:req.params.name})
         if (pdt.length === 0){
@@ -104,7 +106,7 @@ InvRoute.get('/IdSeach/:id', async(req, res)=>{
     }
 })
 
-InvRoute.get('/', async(req, res)=>{
+InvRoute.get('/:storeID', async(req, res)=>{
     try {
         const inv = await Inv.find()
         if (inv.length === 0){
