@@ -40,16 +40,16 @@ function Inventory() {
 
   const handleSubmit = () => {
     const newPdt = {
-      productName: name,
+      Name: name,
       MRP: mrp,
       Quantity: quan,
-      storeID: StoreId,
-      RetailPrice: RP,
+      sID: StoreId,
+      RP: RP,
       Category: Cate,
-      unitsBought: bought,
-      unitsSold: sold,
-      Seasonality: season,
-      Promotion: promo,
+      uB: bought,
+      uS: sold,
+      season: season,
+      p: promo,
     };
 
     axios

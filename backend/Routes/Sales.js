@@ -31,7 +31,7 @@ SalesRouter.get('/:id', async(req, res)=>{
 })
 
 SalesRouter.post('/newSales', async(req, res)=>{
-    if (!(req.body.saleId || req.body.StoreId || req.body.productId || req.body.Quantity || req.body.totalCost)){
+    if (!(req.body.StoreId || req.body.productId || req.body.Quantity )){
         return res.status(400).json({
             "msg":"Missing fields"
         })
@@ -39,12 +39,15 @@ SalesRouter.post('/newSales', async(req, res)=>{
     try {
         const price = await Inv.find({_id:req.body.productId})[0].price
         const newSale = {
-        _id:req.body.saleId,
         StoreId:req.body.StoreId,
         productId:req.body.productId,
         Quantity:req.body.Quantity,
         totalCost: req.body.Quantity *price
         }
+        const sales = await Sales.find()
+        var lastid = 1
+        if (sales.length != 0) lastid = sales.at(-1)._id + 1 
+        newSale._id = lastid
         const newS = new Sales(newSale)
         await newS.save()
         const pdt = await Inv.find({_id:req.body.productId})

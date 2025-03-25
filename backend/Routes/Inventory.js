@@ -4,7 +4,7 @@ import { Inv } from "../schema.js"
 const InvRoute = express.Router()
 
 InvRoute.post('/NewAdmin', async(req, res)=>{
-    if (!(req.body.pdtId || req.body.Name || req.body.MRP || req.body.Quantity || req.body.sID || req.body.RP || req.body.Category || 
+    if (!(req.body.Name || req.body.MRP || req.body.Quantity || req.body.sID || req.body.RP || req.body.Category || 
         req.body.uB || req.body.uS || req.body.season || req.body.p )){
             return res.status(400).json({
                 "msg":"Missing Fields"
