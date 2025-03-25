@@ -4,6 +4,7 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import Success from './Pages/Success'
 import Inventory from './Pages/Inventory'
+import Store from './Pages/Store'
 
 const route = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const route = createBrowserRouter([
     {
       path:'/inventory',
       element:<Inventory />
+    },
+    {
+      path:'/Store',
+      element:<Store />
     }
 ])
 

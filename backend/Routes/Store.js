@@ -11,7 +11,7 @@ storeRouter.get('/', async(req, res)=>{
                 "msg":"no Store found"
             })
         }
-        return res.status(200).json(store)
+        return res.status(200).json({"data":store})
     } catch (error) {
         console.log(error)
         res.status(401).json({
@@ -20,14 +20,13 @@ storeRouter.get('/', async(req, res)=>{
     }
 })
 
-storeRouter.post('/AddStore', (req, res)=>{
+storeRouter.post('/AddStore', async(req, res)=>{
     if (!(req.body.storeId || req.body.storeName || req.body.storeAddress || req.body.OwnerId)){
         return res.status(400).json({
             "msg":"Missing Fields"
         })
     }
     const newStore = {
-        _id:req.body.storeId,
         StoreName:req.body.storeName,
         StoreAddress:req.body.storeAddress,
         TotalSales:0,
@@ -38,6 +37,10 @@ storeRouter.post('/AddStore', (req, res)=>{
         UserId: (req.body.UserId) ? req.body.UserId : false
     }
     try {
+        const lastStore = await Store.find({})
+        var lastid = 1
+        if (lastStore.length != 0 ) lastid = lastStore.at(-1)._id + 1
+        newStore._id = lastid
         const newS = new Store(newStore)
         newS.save()
         console.log(newS)
