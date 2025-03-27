@@ -8,10 +8,12 @@ import Store from './Pages/Store'
 import Sales from "./Pages/Sales"
 import Purchase from './Pages/Purchase'
 import Users from './Pages/Users'
+import Dashboard from './Pages/Dashboard'
+import Vendor from './Pages/Vendor'
 
 const route = createBrowserRouter([
     {
-        path:'/',
+        path:'/Login',
         element:<Login />
     },
     {
@@ -41,6 +43,14 @@ const route = createBrowserRouter([
     {
       path:'/User',
       element:<Users />
+    },
+    {
+      path:'/',
+      element:<Dashboard />
+    },
+    {
+      path:'/Vendor',
+      element:<Dashboard />
     },
 ])
 
