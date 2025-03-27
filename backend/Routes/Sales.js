@@ -29,6 +29,32 @@ SalesRouter.get('/:id', async(req, res)=>{
         })
     }
 })
+SalesRouter.get('/:sid', async(req, res)=>{
+    try {
+        const salesData = await Sales.find({_id:req.params.sid})
+        if (salesData.length != 0 ){  
+            return res.status(201).json({
+                "msg":"Data Fetched",
+                "data":salesData
+            })
+        }
+        else if(salesData.length > 2){
+            return res.status(403).json({
+                "msg":"Multiple items found", salesData
+            })
+        }
+    
+        return res.status(402).json({
+            "msg":"No sales found"
+        })
+    
+    } catch (error) {
+        console.log(error)
+        return res.status(401).json({
+            "msg":"Error in fetching data"
+        })
+    }
+})
 
 SalesRouter.post('/newSales', async(req, res)=>{
     if (!(req.body.StoreId || req.body.productId || req.body.Quantity )){
