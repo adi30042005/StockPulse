@@ -1,5 +1,6 @@
 import express from 'express'
 import { User, Log } from '../schema.js'
+import Cookies from 'js-cookie'
 
 const userRouter = express.Router()
 
@@ -59,6 +60,31 @@ userRouter.post('/Register', async(req, res)=>{
         })
     }
 })
+userRouter.get('/changePasswd/:passwd', async(req,res)=>{
+    const user = Cookies.get('username');
+    const passwd = req.params.passwd
+    try {
+        const users = await User.find({userName:user})
+        if (user.length === 0){
+            return res.status(402).json({
+                "msg":"no user found"
+            })
+        }
+        else if (user.length >= 1){
+            return res.status(403).json({
+                "msg":"Multiple Entries found"
+            });
+        }
+        else{
+            users[0].passwd = passwd;
+            return res.status(204).json({
+                "msg":"Password Updated Successfully"
+            })
+        }
+    } catch (error) {
+        return res.json(error).status(401)
+    }
+})
 
 userRouter.get('/userName/:name', async(req, res)=>{
     try {
@@ -115,6 +141,7 @@ userRouter.post('/Login',async(req, res)=>{
         } catch (error) {
             console.log(error)   
         }
+        Cookies.set('username',uname )
         return res.status(202).json({
             "msg":"Login Success",
             id:uname
@@ -136,7 +163,8 @@ userRouter.get('/Logout', async(req, res)=>{
     }
     const uname = req.body.uname
     if (uname in req.cookies){
-        return res.clearCookie(uname).status(203).json({
+        Cookies.remove('username')
+        return res.status(203).json({
             "msg":"Logged Out Successfully"
         })
     }
