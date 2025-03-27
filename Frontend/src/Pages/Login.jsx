@@ -22,8 +22,8 @@ function Login(){
             const res = await axios.post('http://localhost:1234/User/Login', detail)
             console.log(res)
             if (res.status === 202) {
-                navigate('/success')
                 Cookies.set('username', res.data.id, {expires:null})
+                navigate('/success')
             }    
         } catch (error) {
             setError('Error in logging in')
