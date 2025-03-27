@@ -5,14 +5,13 @@ import { Store, Inv } from "../schema.js"
 const PurchaseRoute = express.Router()
 
 PurchaseRoute.post('/', async (req, res)=>{
-    if (!(req.body.invoiceID || eq.body.productId || req.body.storeID || req.body.Date || req.body.RetailPrice ||  req.body.Quantity || req.body.Paid)){
+    if (!(req.body.productId || req.body.storeID || req.body.Date || req.body.RetailPrice ||  req.body.Quantity || req.body.Paid)){
         return res.status(400).json({
             "msg":"Missing fields"
 
         })
     }
     const newPurchase = {
-        _id:req.body.invoiceID, 
         Date:req.body.Date,
         productId: req.body.productId,
         storeID: req.body.storeID,
@@ -22,6 +21,10 @@ PurchaseRoute.post('/', async (req, res)=>{
     }
 
     try {    
+        const purchases = await Purchase.find({})
+        var lastid = 1
+        if (purchases.length != 0) lastid = purchases.at(-1)._id + 1
+        newPurchase._id = lastid
         const newP = new Purchase(newPurchase)
         newP.save()
         const newS = await Store.find({_id:req.body.storeID})
