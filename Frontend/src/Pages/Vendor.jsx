@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Vendor() {
+    document.title = 'StockPulse - Vendor'
     const [vendors, setVendors] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [venId, setVenId] = useState('');

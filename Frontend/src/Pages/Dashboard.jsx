@@ -1,18 +1,7 @@
-// import React from 'react'
-
-// function Dashboard(){
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// export default Dashboard
-
 import React from "react";
 
 function Dashboard() {
+  document.title = 'StockPulse - Dashboard'
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
