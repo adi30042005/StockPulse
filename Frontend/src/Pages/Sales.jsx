@@ -49,7 +49,7 @@
 // export default Sales
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import Cookie from 'js-cookie'
 function Sales() {
   const [opt, setOpt] = useState(false);
   const [sid, setSid] = useState(0);
@@ -61,18 +61,16 @@ function Sales() {
 
   // Fetch sales data
   useEffect(() => {
-    if (sid !== 0) {
       axios
-        .get(`http://localhost:1234/Sales/${sid}`)
+        .get(`http://localhost:1234/Sales/`)
         .then((res) => {
-          if (res.status === 201) setData(res.data["data"]);
+          if (res.status === 201) setData(res.data['data']);
           else setErr(res.data["msg"]);
         })
         .catch((error) => setErr("Error fetching sales data"));
-    }
-  }, [sid]); // Dependency added to refetch data when sid changes
-
-  // Handle new sale submission
+    
+  }, []); 
+  console.log(data)
   const handleSubmit = () => {
     const newSale = {
       StoreId: sid,
@@ -156,8 +154,8 @@ function Sales() {
             <tbody>
               {data.map((sale, index) => (
                 <tr key={index} className="text-center">
-                  <td className="border border-gray-400 p-2">{sale.Date}</td>
-                  <td className="border border-gray-400 p-2">{sale.StoreId}</td>
+                  <td className="border border-gray-400 p-2">{sale.date}</td>
+                  <td className="border border-gray-400 p-2">{sale.storeId}</td>
                   <td className="border border-gray-400 p-2">{sale.productID}</td>
                   <td className="border border-gray-400 p-2">{sale.Quantity}</td>
                   <td className="border border-gray-400 p-2">{sale.totalCost}</td>

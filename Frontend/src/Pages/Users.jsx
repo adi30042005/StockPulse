@@ -62,7 +62,7 @@ function Users() {
 
   if (!username) {
     navigate("/Login");
-    return null;
+    return <div></div>;
   }
 
   useEffect(() => {

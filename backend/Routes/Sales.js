@@ -3,13 +3,14 @@ import { Sales,Inv, Store } from "../schema.js"
 
 const SalesRouter = express.Router()
 
-SalesRouter.get('/:id', async(req, res)=>{
+SalesRouter.get('/', async(req, res)=>{
     try {
-        const salesData = await Sales.find({_id:req.body.saleId})
+        const salesData = await Sales.find({})
+        console.log(salesData)
         if (salesData.length != 0 ){  
             return res.status(201).json({
                 "msg":"Data Fetched",
-                salesData
+                "data":salesData
             })
         }
         else if(salesData.length > 2){
@@ -31,7 +32,7 @@ SalesRouter.get('/:id', async(req, res)=>{
 })
 SalesRouter.get('/:sid', async(req, res)=>{
     try {
-        const salesData = await Sales.find({_id:req.params.sid})
+        const salesData = await Sales.find({StoreId:req.params.sid})
         if (salesData.length != 0 ){  
             return res.status(201).json({
                 "msg":"Data Fetched",

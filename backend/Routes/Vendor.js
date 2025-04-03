@@ -51,4 +51,19 @@ vendorRouter.get('/name/:name', async(req, res)=>{
     }
 })
 
+vendorRouter.get('/', async(req, res)=>{
+    try{
+        const ven = await Vendor.find()
+        if (ven.length === 0){
+            return res.status(402).json({"msg":'No vendor Found'})
+        }
+        return res.status(201).json({"msg":"Vendor found", "data":ven})
+    }
+    catch(error){
+        return res.status(401).json({
+            "msg":"Error in fetching data",
+            "err":error
+        })
+    }
+})
 export default vendorRouter

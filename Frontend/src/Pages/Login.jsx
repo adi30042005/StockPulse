@@ -64,7 +64,8 @@ function Login() {
 
       if (res.status === 202) {
         Cookies.set("username", res.data.id, { expires: null });
-        navigate("/success");
+        navigate("/");
+        
       } else {
         setError("Invalid credentials");
       }

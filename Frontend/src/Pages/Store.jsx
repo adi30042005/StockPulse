@@ -170,13 +170,13 @@ function Store() {
             <tbody>
               {data.map((store, index) => (
                 <tr key={index} className="text-center">
-                  <td className="border border-gray-400 p-2">{store.StoreName}</td>
-                  <td className="border border-gray-400 p-2">{store.StoreAddress}</td>
-                  <td className="border border-gray-400 p-2">{store.TotalSales}</td>
-                  <td className="border border-gray-400 p-2">{store.TotalExp}</td>
+                  <td className="border border-gray-400 p-2">{store.storeName}</td>
+                  <td className="border border-gray-400 p-2">{store.storeAddress}</td>
+                  <td className="border border-gray-400 p-2">{store.totalSales}</td>
+                  <td className="border border-gray-400 p-2">{store.totalExp}</td>
                   <td className="border border-gray-400 p-2">{store.toGive}</td>
                   <td className="border border-gray-400 p-2">{store.toGet}</td>
-                  <td className="border border-gray-400 p-2">{store.OwnerId}</td>
+                  <td className="border border-gray-400 p-2">{store.ownerId}</td>
                   <td className="border border-gray-400 p-2">{store.UserId.join(", ")}</td>
                 </tr>
               ))}

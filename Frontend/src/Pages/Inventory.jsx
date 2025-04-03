@@ -134,7 +134,7 @@ function Inventory() {
         setMsg(err.message);
       });
   }, []);
-
+  console.log(data)
   // Search Function
   const handleSearch = () => {
     axios
@@ -245,14 +245,14 @@ function Inventory() {
                   <td className="border p-2">{item._id}</td>
                   <td className="border p-2">{item.productName}</td>
                   <td className="border p-2">{item.MRP}</td>
-                  <td className="border p-2">{item.Quantity}</td>
+                  <td className="border p-2">{item.quantity}</td>
                   <td className="border p-2">{item.storeID}</td>
-                  <td className="border p-2">{item.RetailPrice}</td>
-                  <td className="border p-2">{item.Category}</td>
+                  <td className="border p-2">{item.retailPrice}</td>
+                  <td className="border p-2">{item.category}</td>
                   <td className="border p-2">{item.unitsBought}</td>
                   <td className="border p-2">{item.unitsSold}</td>
                   <td className="border p-2">{item.seasonality}</td>
-                  <td className="border p-2">{item.Promotion}</td>
+                  <td className="border p-2">{item.promotion}</td>
                 </tr>
               ))
             ) : (

@@ -76,7 +76,7 @@ function Purchase() {
       })
       .catch((err) => setError(err.message));
   }, []);
-
+  // console.log(data)
   const handleSubmit = () => {
     const newPurchase = {
       productId: pid,
@@ -86,7 +86,7 @@ function Purchase() {
       Quantity: quantity,
       Paid: paid,
     };
-
+    
     axios
       .post("http://localhost:1234/Purchase", newPurchase)
       .then((res) => {
@@ -200,7 +200,7 @@ function Purchase() {
                   <td className="border p-2">{purchase.date}</td>
                   <td className="border p-2">{purchase.productId}</td>
                   <td className="border p-2">{purchase.storeID}</td>
-                  <td className="border p-2">{purchase.Quantity}</td>
+                  <td className="border p-2">{purchase.quantity}</td>
                   <td className="border p-2">
                     {purchase.Paid ? "Yes" : "No"}
                   </td>
