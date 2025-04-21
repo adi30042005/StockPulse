@@ -7,6 +7,7 @@ import storeRouter from "./Routes/Store.js"
 import SalesRouter from "./Routes/Sales.js"
 import userRouter from "./Routes/Users.js"
 import vendorRouter from "./Routes/Vendor.js"
+import AggRoute from "./Routes/Aggregator.js"
 
 const app = express()
 mongoose.connect('mongodb+srv://aniruddhanarasimman:Anis301004@inventory.kuh1e.mongodb.net/SmartInventoryManagement?retryWrites=true&w=majority')
@@ -24,6 +25,7 @@ app.use('/Inventory', InvRoute)
 app.use('/Store', storeRouter)
 app.use('/Sales',SalesRouter)
 app.use('/User', userRouter)
+app.use('/Aggregate', AggRoute)
 
 app.get('/', (req, res, err)=>{
     return res.send('Working')

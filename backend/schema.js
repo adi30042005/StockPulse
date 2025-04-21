@@ -90,6 +90,10 @@ const inventorySchema=mongoose.Schema({
         type:Number, 
         required:true
     },
+    Date:{
+        type:Date,
+        default:Date.now()
+    },
     productName:{
         type:String,
         required:true
@@ -110,7 +114,11 @@ const inventorySchema=mongoose.Schema({
     unitsBought:Number,
     unitsSold:Number,
     seasonality:String,
-    Promotion:String
+    Promotion:String,
+    Region:String,
+
+    Weather:String,
+    CPrice:Number
 })
 
 //Vendor
@@ -139,6 +147,7 @@ const logSchema = mongoose.Schema({
 export const Store =  mongoose.model('Store',storeSchema, "Store")
 export const Purchase =  mongoose.model('Purchase',purchaseSchema, "Purchase")
 export const Sales =  mongoose.model('Sales',salesSchema, "Sales")
+export const Aggregate = mongoose.model('Aggregator', inventorySchema, "Aggregator")
 export const Inv =  mongoose.model('Inventory',inventorySchema, "Inventory")
 export const User = mongoose.model('User', userSchema, 'User')
 export const Log = mongoose.model('Log', logSchema, 'Log')
