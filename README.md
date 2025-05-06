@@ -1,4 +1,7 @@
-StockPulse is a advanced Smart Inventory management System which uses AI <br />
+<h1>STOCKPULSE</h1>
+
+
+&emsp;StockPulse is a advanced Smart Inventory management System which uses AI <br />
 to build a system that predicts a stock run-out time of a particular stock.
 
 COLLABORATORS: <br />
